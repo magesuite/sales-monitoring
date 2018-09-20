@@ -1,0 +1,20 @@
+{
+    "name": "creativestyle/magesuite-sales-monitoring",
+    "description": "Magento extension for sales monitoring",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "guzzlehttp/guzzle": "~6.0",
+        "creativestyle/utilities": "^2.1"
+    },
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "MageSuite\\SalesMonitoring\\": ""
+        }
+    }
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root">
+        <block class="MageSuite\SalesMonitoring\Block\Frontend\Dashboard\Page" name="sales_monitoring_dashboard_index" template="MageSuite_SalesMonitoring::dashboard_page.phtml" />
+    </container>
+    <referenceContainer name="page.bottom.wrapper" remove="true"/>
+</layout>

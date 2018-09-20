@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_monitoring_check_state_changed">
+        <observer name="sales_monitoring_notifier" instance="MageSuite\SalesMonitoring\Service\Notifier"/>
+    </event>
+</config>

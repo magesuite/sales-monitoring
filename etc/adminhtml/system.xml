@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magesuite" translate="label" sortOrder="300">
+            <label>magesuite</label>
+        </tab>
+        <section id="sales_monitoring" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Sales Monitoring</label>
+            <tab>magesuite</tab>
+            <resource>MageSuite_SalesMonitoring::settings</resource>
+            <group id="dashboard" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Dashboard</label>
+                <attribute type="expanded">1</attribute>
+                <field id="token" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Secret token</label>
+                    <config_path>sales_monitoring/dashboard/token</config_path>
+                    <frontend_model>MageSuite\SalesMonitoring\Block\Adminhtml\System\Config\DashboardToken</frontend_model>
+                </field>
+            </group>
+            <group id="notifications" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Notifications</label>
+                <field id="project_name" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Project name</label>
+                    <comment>Name of the project displayed in the notifications.</comment>
+                </field>
+                <field id="slack_hooks"
+                       translate="label"
+                       sortOrder="50"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0">
+                    <label>Slack Webhooks</label>
+                    <frontend_model>MageSuite\SalesMonitoring\Block\Adminhtml\System\Config\SlackHooks</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment>Enter the slack webhook URL in the first column. Channel name should include the hash sign, leave it empty to use hook's default channel.</comment>
+                </field>
+                <!-- Switch to multiline field when it's fixed: https://github.com/magento/magento2/issues/7428 -->
+                <field id="emails"
+                       translate="label"
+                       type="textarea"
+                       sortOrder="60"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0">
+                    <label>E-mails</label>
+                    <comment>Enter each e-mail in a separate line or separate them with commas</comment>
+                    <backend_model>MageSuite\SalesMonitoring\Model\Config\Backend\StringArray</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">sales_monitoring_check_edit_form.sales_monitoring_check_edit_form_data_source</item>
+            <item name="deps" xsi:type="string">sales_monitoring_check_edit_form.sales_monitoring_check_edit_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Check Alarm Criteria</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">sales_monitoring_check_edit_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="string">MageSuite\SalesMonitoring\Block\Adminhtml\Check\SaveButton</item>
+            <item name="back" xsi:type="string">MageSuite\SalesMonitoring\Block\Adminhtml\Check\BackButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="sales_monitoring_check_edit_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">MageSuite\SalesMonitoring\Model\CheckDataProvider</argument>
+            <argument name="name" xsi:type="string">sales_monitoring_check_edit_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="check_basic">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="label" xsi:type="string" translate="true">Basic information</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataScope" xsi:type="string">id</item>
+                    <item name="formElement" xsi:type="string">hidden</item>
+                </item>
+            </argument>
+        </field>
+        <field name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Name</item>
+                    <item name="notice" xsi:type="string" translate="true">This should be a descriptive name for your own information.</item>
+                    <item name="dataScope" xsi:type="string">name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="check_criteria_filters">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="label" xsi:type="string" translate="true">Alarm criteria filters (which orders to count)</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="criteria_hours_back">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="array">
+                    <item name="0" xsi:type="array">
+                        <item name="value" xsi:type="string">1</item>
+                        <item name="label" xsi:type="string" translate="true">1 hour back</item>
+                    </item>
+                    <item name="1" xsi:type="array">
+                        <item name="value" xsi:type="string">3</item>
+                        <item name="label" xsi:type="string" translate="true">3 hours back</item>
+                    </item>
+                    <item name="2" xsi:type="array">
+                        <item name="value" xsi:type="string">6</item>
+                        <item name="label" xsi:type="string" translate="true">6 hours back</item>
+                    </item>
+                    <item name="3" xsi:type="array">
+                        <item name="value" xsi:type="string">12</item>
+                        <item name="label" xsi:type="string" translate="true">12 hours back</item>
+                    </item>
+                    <item name="4" xsi:type="array">
+                        <item name="value" xsi:type="string">24</item>
+                        <item name="label" xsi:type="string" translate="true">24 hours back</item>
+                    </item>
+                </item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Time window</item>
+                    <item name="notice" xsi:type="string" translate="true">
+                        Note that time window is not cut off by constraints, for example - if check is constrained
+                        to hours 10:00 - 16:00 and you select "3 hours back" here then the first execution at 10:00
+                        every day will count orders between 7:00 and 10:00.
+                    </item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">hours_back</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="required" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="criteria_shipping_method">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">MageSuite\SalesMonitoring\Ui\Component\Form\ShippingMethodOptions</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Shipping method</item>
+                    <item name="dataScope" xsi:type="string">shipping_method</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="criteria_payment_method">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">MageSuite\SalesMonitoring\Ui\Component\Form\PaymentMethodOptions</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Payment method</item>
+                    <item name="dataScope" xsi:type="string">payment_method</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="check_criteria_constraints">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="label" xsi:type="string" translate="true">Check constraints (when to execute the check)</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <field name="criteria_hour_from">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">
+                    \MageSuite\SalesMonitoring\Ui\Component\Form\HourFromOptions
+                </item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">From hour</item>
+                    <item name="dataScope" xsi:type="string">hour_from</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="criteria_hour_to">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">
+                    \MageSuite\SalesMonitoring\Ui\Component\Form\HourToOptions
+                </item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">To hour</item>
+                    <item name="dataScope" xsi:type="string">hour_to</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="criteria_days_of_the_week">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="array">
+                    <item name="0" xsi:type="array">
+                        <item name="value" xsi:type="number">1</item>
+                        <item name="label" xsi:type="string" translate="true">Monday</item>
+                    </item>
+                    <item name="1" xsi:type="array">
+                        <item name="value" xsi:type="number">2</item>
+                        <item name="label" xsi:type="string" translate="true">Tuesday</item>
+                    </item>
+                    <item name="2" xsi:type="array">
+                        <item name="value" xsi:type="number">3</item>
+                        <item name="label" xsi:type="string" translate="true">Wednesday</item>
+                    </item>
+                    <item name="3" xsi:type="array">
+                        <item name="value" xsi:type="number">4</item>
+                        <item name="label" xsi:type="string" translate="true">Thursday</item>
+                    </item>
+                    <item name="4" xsi:type="array">
+                        <item name="value" xsi:type="number">5</item>
+                        <item name="label" xsi:type="string" translate="true">Friday</item>
+                    </item>
+                    <item name="5" xsi:type="array">
+                        <item name="value" xsi:type="number">6</item>
+                        <item name="label" xsi:type="string" translate="true">Saturday</item>
+                    </item>
+                    <item name="6" xsi:type="array">
+                        <item name="value" xsi:type="number">7</item>
+                        <item name="label" xsi:type="string" translate="true">Sunday</item>
+                    </item>
+                </item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Days of the week</item>
+                    <item name="dataScope" xsi:type="string">days_of_the_week</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="default" xsi:type="array">
+                        <item name="0" xsi:type="number">1</item>
+                        <item name="1" xsi:type="number">2</item>
+                        <item name="2" xsi:type="number">3</item>
+                        <item name="3" xsi:type="number">4</item>
+                        <item name="4" xsi:type="number">5</item>
+                        <item name="5" xsi:type="number">6</item>
+                        <item name="6" xsi:type="number">7</item>
+                    </item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+    </fieldset>
+</form>

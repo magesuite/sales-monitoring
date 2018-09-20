@@ -1,0 +1,66 @@
+<div class="page-wrapper">
+    <div class="cs-container">
+        <div class="cs-headline">
+            <h1 class="cs-headline__title"><?= __('Sales monitoring dashboard') ?></h1>
+        </div>
+        <table style="margin: 0 auto;">
+            <thead>
+                <tr>
+                    <th><?= __('Name') ?></th>
+                    <th><?= __('Status') ?></th>
+                    <th><?= __('Order count') ?></th>
+                    <th><?= __('Filters') ?></th>
+                    <th><?= __('Updates') ?></th>
+                    <th><?= __('Match text') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php /** @var \MageSuite\SalesMonitoring\Model\Check $check */ ?>
+                <?php foreach ($this->getChecks() as $check): ?>
+                    <tr style="background: <?= $check->isInAlarmState() ? '#FFC3C5' : '#D9FFCD' ?>;border-bottom: solid 1px #fff;">
+                        <td style="vertical-align: middle;"><strong><?= $check->getName(); ?></strong></td>
+                        <td class="cs-t-text <?= $check->isInOKState() ? 'cs-t-text--look_success' : 'cs-t-text--look_error' ?>">
+                            <em><?= $check->getState(); ?></em><br/>
+                            <span class="cs-t-text cs-t-text--size_200">
+                                <?php if ($check->getTriggeredAt()): ?>
+                                    <em><?= __('Last alarm triggered:') ?></em> <?= $check->getTriggeredAt()->format('d.m.Y H:i') ?>
+                                <?php else: ?>
+                                    <?= __('Never triggered') ?>
+                                <?php endif; ?>
+                            </span>
+                        </td>
+                        <td>
+                            <?= null !== $check->getLastOrderCount() ? $check->getLastOrderCount() : '&mdash;' ?>
+                            <span class="cs-t-text">(last <?= $check->getCriteria()->getHoursBack() ?> hours)</span>
+                            <span class="cs-t-text cs-t-text--size_200"><br/>
+                                <?php if ($check->getExecutedAt()): ?>
+                                    <em><?= __('Last execution:') ?></em> <?= $check->getExecutedAt()->format('d.m.Y H:i') ?>
+                                <?php else: ?>
+                                    <?= __('Never executed (new)') ?>
+                                <?php endif; ?>
+                            </span>
+                        </td>
+                        <td>
+                            <em><?= __('Payment:') ?></em> <?= $check->getCriteria()->getPaymentMethod() ? $this->getPaymentMethodName($check->getCriteria()->getPaymentMethod()) : __('any') ?><br/>
+                            <em><?= __('Shipping:') ?></em> <?= $check->getCriteria()->getShippingMethod() ? $this->getShippingMethodName($check->getCriteria()->getShippingMethod()) : __('any') ?>
+                        </td>
+                        <td style="font-size: 0.9em; vertical-align: middle;">
+                            <?php if ($check->getCriteria()->getHourFrom() || $check->getCriteria()->getHourTo()): ?>
+                                <?= $check->getCriteria()->getHourFromFormatted() ?> - <?= $check->getCriteria()->getHourToFormatted() ?>
+                            <?php else: ?>
+                                24h
+                            <?php endif; ?>
+                            <br/>
+                            <?php foreach ($check->getCriteria()->getDaysOfTheWeek() as $i => $dayNr): ?>
+                                <?= __(jddayofweek(($dayNr + 6) % 7, 2)) ?><?= $i < count($check->getCriteria()->getDaysOfTheWeek()) - 1 ? ',' : '' ?>
+                            <?php endforeach; ?>
+                        </td>
+                        <td style="vertical-align: middle;" class="cs-t-text cs-t-text--size_300">
+                            <?= $check->getStatusPatternString() ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

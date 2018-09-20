@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MageSuite_SalesMonitoring::index"
+             title="Sales Monitoring"
+             translate="title"
+             module="MageSuite_SalesMonitoring"
+             parent="Magento_Backend::system"
+             sortOrder="50"
+             resource="MageSuite_SalesMonitoring::index"/>
+        <add id="MageSuite_SalesMonitoring::checks"
+             title="Checks"
+             translate="title"
+             module="MageSuite_SalesMonitoring"
+             parent="MageSuite_SalesMonitoring::index"
+             sortOrder="10"
+             action="sales_monitoring/checks/index"
+             resource="MageSuite_SalesMonitoring::checks"/>
+        <add id="MageSuite_SalesMonitoring::settings"
+             title="Settings"
+             translate="title"
+             module="MageSuite_SalesMonitoring"
+             parent="MageSuite_SalesMonitoring::index"
+             sortOrder="10"
+             action="adminhtml/system_config/edit/section/sales_monitoring"
+             resource="MageSuite_SalesMonitoring::settings"/>
+    </menu>
+</config>
