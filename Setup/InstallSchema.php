@@ -11,7 +11,7 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
     ) {
         $installer->startSetup();
 
-        if (!$installer->getConnection()->tableExists('creativestyle_sales_monitoring_checks')) {
+        if (!$installer->tableExists('creativestyle_sales_monitoring_checks')) {
             $checksTable = $installer->getConnection()
                 ->newTable($installer->getTable('creativestyle_sales_monitoring_checks'))
                 ->addColumn(
