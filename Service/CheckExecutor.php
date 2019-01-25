@@ -103,8 +103,7 @@ class CheckExecutor
         $criteria = $check->getCriteria();
 
         if (!$this->shouldCheckBeProcessed($check)) {
-            $this->logger->info(sprintf('Skipping check %s #%d because of time constraints', $check->getName(), $check->getId()));
-                
+            $this->logger->info(sprintf('Skipping check %s #%d because of time constraints', $check->getName(), $check->getId()));     
             return;
         }
 

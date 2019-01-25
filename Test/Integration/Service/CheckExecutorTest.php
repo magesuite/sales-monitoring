@@ -23,6 +23,18 @@ class CheckExecutorTest extends \PHPUnit\Framework\TestCase
      */
     private $repository;
 
+    private function normalizeDateTime(\DateTime $dateTime = null)
+    {
+        if (null === $dateTime) {
+            return null;
+        }
+
+        // Sometimes dates have microsends and others not which may fail comparison producting false negatives
+        // We care only about second precision so we can use UNIX timestamp for normalization
+
+        return new \DateTime('@' . $dateTime->getTimestamp());
+    }
+
     public function setUp()
     {
         $this->executor = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
@@ -35,8 +47,9 @@ class CheckExecutorTest extends \PHPUnit\Framework\TestCase
     /**
      * @magentoDataFixture loadOrders
      * @magentoDbIsolation enabled
+     * @magentoConfigFixture default/sales_monitoring/notifications/slack_hooks []
      */
-    public function testThatvalidChecksAreProcessed()
+    public function testThatAllValidChecksAreProcessed()
     {
         $startTime = new \DateTime();
         $this->executor->executeAll();
@@ -48,13 +61,18 @@ class CheckExecutorTest extends \PHPUnit\Framework\TestCase
                 continue;
             }
             
-            $this->assertGreaterThanOrEqual($startTime, $check->getExecutedAt());
+            $this->assertNotNull($check->getExecutedAt());
+            $this->assertGreaterThanOrEqual(
+                $this->normalizeDateTime($startTime),
+                $this->normalizeDateTime($check->getExecutedAt())
+            );
         }
     }
 
     /**
      * @magentoDataFixture loadOrders
      * @magentoDbIsolation enabled
+     * @magentoConfigFixture default/sales_monitoring/notifications/slack_hooks []
      */
     public function testThatGlobalCheckIsNotTriggered()
     {
@@ -65,12 +83,18 @@ class CheckExecutorTest extends \PHPUnit\Framework\TestCase
         $check = current($this->repository->findByName('All 3h'));
 
         $this->assertTrue($check->isInOKState());
-        $this->assertGreaterThanOrEqual($startTime, $check->getExecutedAt());
+        $this->assertNotNull($check->getExecutedAt());
+
+        $this->assertGreaterThanOrEqual(
+            $this->normalizeDateTime($startTime),
+            $this->normalizeDateTime($check->getExecutedAt())
+        );
     }
 
     /**
      * @magentoDataFixture loadOrders
      * @magentoDbIsolation enabled
+     * @magentoConfigFixture default/sales_monitoring/notifications/slack_hooks []
      */
     public function testThatCheckWithShippingMethodThatHasNoOrdersIsTriggered()
     {
@@ -81,12 +105,17 @@ class CheckExecutorTest extends \PHPUnit\Framework\TestCase
         $check = current($this->repository->findByName('Shipping Method No Orders'));
 
         $this->assertTrue($check->isInAlarmState());
-        $this->assertGreaterThanOrEqual($startTime, $check->getTriggeredAt());
+        $this->assertNotNull($check->getExecutedAt());
+        $this->assertGreaterThanOrEqual(
+            $this->normalizeDateTime($startTime),
+            $this->normalizeDateTime($check->getExecutedAt())
+        );
     }
 
     /**
      * @magentoDataFixture loadOrders
      * @magentoDbIsolation enabled
+     * @magentoConfigFixture default/sales_monitoring/notifications/slack_hooks []
      */
     public function testThatCheckWithPaymentMethodThatHasNoOrdersIsTriggered()
     {
@@ -97,12 +126,17 @@ class CheckExecutorTest extends \PHPUnit\Framework\TestCase
         $check = current($this->repository->findByName('Payment Method No Orders'));
 
         $this->assertTrue($check->isInAlarmState());
-        $this->assertGreaterThanOrEqual($startTime, $check->getTriggeredAt());
+        $this->assertNotNull($check->getExecutedAt());
+        $this->assertGreaterThanOrEqual(
+            $this->normalizeDateTime($startTime),
+            $this->normalizeDateTime($check->getExecutedAt())
+        );
     }
 
     /**
      * @magentoDataFixture loadOrders
      * @magentoDbIsolation enabled
+     * @magentoConfigFixture default/sales_monitoring/notifications/slack_hooks []
      */
     public function testThatCheckWithShppingAndPaymentIsOkay()
     {
@@ -113,12 +147,17 @@ class CheckExecutorTest extends \PHPUnit\Framework\TestCase
         $check = current($this->repository->findByName('Shipping and payment'));
 
         $this->assertTrue($check->isInOKState());
-        $this->assertGreaterThanOrEqual($startTime, $check->getExecutedAt());
+        $this->assertNotNull($check->getExecutedAt());
+        $this->assertGreaterThanOrEqual(
+            $this->normalizeDateTime($startTime),
+            $this->normalizeDateTime($check->getExecutedAt())
+        );
     }
 
     /**
      * @magentoDataFixture loadOrders
      * @magentoDbIsolation enabled
+     * @magentoConfigFixture default/sales_monitoring/notifications/slack_hooks []
      */
     public function testThatCheckWithOutsideHoursIsNotProcessed()
     {
@@ -134,6 +173,7 @@ class CheckExecutorTest extends \PHPUnit\Framework\TestCase
     /**
      * @magentoDataFixture loadOrders
      * @magentoDbIsolation enabled
+     * @magentoConfigFixture default/sales_monitoring/notifications/slack_hooks []
      */
     public function testThatCheckWithOutsideDaysIsNotProcessed()
     {
