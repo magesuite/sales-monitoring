@@ -8,7 +8,7 @@
     "require": {
         "php": ">=7.0.0",
         "guzzlehttp/guzzle": "~6.0",
-        "creativestyle/utilities": "^2.1"
+        "creativestyle/utilities": "^3.0"
     },
     "autoload": {
         "files": [ "registration.php" ],
