@@ -1,0 +1,86 @@
+Back,Back
+Save,Save
+Url,Url
+Channel,Channel
+Add,Add
+"The check ""%1"" has been deleted.","The check ""%1"" has been deleted."
+"Could not delete the check: %1","Could not delete the check: %1"
+"Sales Monitoring","Sales Monitoring"
+Checks,Checks
+"Edit Check","Edit Check"
+"Create Check","Create Check"
+"The check has been saved","The check has been saved"
+"Could not save the check: %1","Could not save the check: %1"
+"Invalid or missing dashboard token","Invalid or missing dashboard token"
+ALARM,ALARM
+OK,OK
+Edit,Edit
+Delete,Delete
+"Delete check","Delete check"
+"Are you sure you want to delete check ""${ $.$data.name }""?","Are you sure you want to delete check ""${ $.$data.name }""?"
+"Used for accessing the dashboard. The full dashboard link is:","Used for accessing the dashboard. The full dashboard link is:"
+"Sales monitoring dashboard","Sales monitoring dashboard"
+Name,Name
+Status,Status
+"Order count","Order count"
+Filters,Filters
+Updates,Updates
+"Match text","Match text"
+"Last alarm triggered:","Last alarm triggered:"
+"Never triggered","Never triggered"
+"Last execution:","Last execution:"
+"Never executed (new)","Never executed (new)"
+Payment:,Payment:
+any,any
+Shipping:,Shipping:
+"** %type - Sales monitoring check %name in %project **","** %type - Sales monitoring check %name in %project **"
+"Sales monitoring check <strong>%name</strong>","Sales monitoring check <strong>%name</strong>"
+"Last order count","Last order count"
+"Hours back checked","Hours back checked"
+"Alarm triggered at","Alarm triggered at"
+"Last execution at","Last execution at"
+"You can view the full sales monitoring dashboard here: <br/><a href=""%link"">%link</a>","You can view the full sales monitoring dashboard here: <br/><a href=""%link"">%link</a>"
+Settings,Settings
+magesuite,magesuite
+Dashboard,Dashboard
+"Secret token","Secret token"
+Notifications,Notifications
+"Project name","Project name"
+"Slack Webhooks","Slack Webhooks"
+E-mails,E-mails
+"Check Alarm Criteria","Check Alarm Criteria"
+"Basic information","Basic information"
+"This should be a descriptive name for your own information.","This should be a descriptive name for your own information."
+"Alarm criteria filters (which orders to count)","Alarm criteria filters (which orders to count)"
+"1 hour back","1 hour back"
+"3 hours back","3 hours back"
+"6 hours back","6 hours back"
+"12 hours back","12 hours back"
+"24 hours back","24 hours back"
+"Time window","Time window"
+"
+                        Note that time window is not cut off by constraints, for example - if check is constrained
+                        to hours 10:00 - 16:00 and you select ""3 hours back"" here then the first execution at 10:00
+                        every day will count orders between 7:00 and 10:00.
+                    ","
+                        Note that time window is not cut off by constraints, for example - if check is constrained
+                        to hours 10:00 - 16:00 and you select ""3 hours back"" here then the first execution at 10:00
+                        every day will count orders between 7:00 and 10:00.
+                    "
+"Shipping method","Shipping method"
+"Payment method","Payment method"
+"Check constraints (when to execute the check)","Check constraints (when to execute the check)"
+"From hour","From hour"
+"To hour","To hour"
+Monday,Monday
+Tuesday,Tuesday
+Wednesday,Wednesday
+Thursday,Thursday
+Friday,Friday
+Saturday,Saturday
+Sunday,Sunday
+"Days of the week","Days of the week"
+"Add New Check","Add New Check"
+State,State
+"Triggered at","Triggered at"
+"Executed at","Executed at"
