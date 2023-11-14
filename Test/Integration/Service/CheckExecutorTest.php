@@ -60,7 +60,7 @@ class CheckExecutorTest extends \PHPUnit\Framework\TestCase
                 /* Skip checks that are purposefully oustide the current time */
                 continue;
             }
-            
+
             $this->assertNotNull($check->getExecutedAt());
             $this->assertGreaterThanOrEqual(
                 $this->normalizeDateTime($startTime),
